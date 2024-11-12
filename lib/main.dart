@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; // Paket Flutter Material untuk menggunakan komponen UI
-import 'package:ecommerce_jopulee/menu.dart'; // menu.dart yang berisi definisi halaman utama aplikasi
+import 'package:ecommerce_jopulee/screens/menu.dart'; // menu.dart yang berisi definisi halaman utama aplikasi
 
 // func utama yang menjadi titik masuk aplikasi Flutter
 void main() {

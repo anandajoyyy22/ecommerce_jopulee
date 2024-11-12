@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ecommerce_jopulee/widgets/left_drawer.dart';
 
 // Class untuk merepresentasikan item ecommerce
 class ShopItem {
@@ -30,10 +31,9 @@ class MyHomePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Theme.of(context)
-            .colorScheme
-            .primary, // Warna latar belakang AppBar
+        backgroundColor: Theme.of(context).colorScheme.primary, // Warna latar belakang AppBar
       ),
+      drawer: const LeftDrawer(), // Menambahkan drawer
       body: SingleChildScrollView(
         // Widget ini dapat discroll
         child: Padding(
@@ -59,8 +59,7 @@ class MyHomePage extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3, // Jumlah kolom dalam grid
-                shrinkWrap:
-                    true, // Mengatur ukuran grid agar sesuai dengan konten
+                shrinkWrap: true, // Mengatur ukuran grid agar sesuai dengan konten
                 children: items.map((ShopItem item) {
                   // Iterasi untuk setiap item
                   return ShopCard(item);
@@ -86,8 +85,7 @@ class ShopCard extends StatelessWidget {
     Color buttonColor;
     switch (item.name) {
       case "Lihat Daftar Produk":
-        buttonColor = const Color.fromARGB(
-            255, 225, 90, 135); // Warna untuk "Lihat Daftar Produk"
+        buttonColor = const Color.fromARGB(255, 225, 90, 135); // Warna untuk "Lihat Daftar Produk"
         break;
       case "Tambah Produk":
         buttonColor = Colors.grey; // Warna untuk "Tambah Produk"

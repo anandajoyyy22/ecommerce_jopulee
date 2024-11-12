@@ -226,3 +226,122 @@ class ShopCard extends StatelessWidget {
   }
 }```
 
+
+# Tugas 8 PBP
+# JopuleeGift README
+
+Berikut adalah jawaban untuk beberapa pertanyaan yang bisa kamu tambahkan ke dalam file README.md untuk tugas ini:
+
+---
+
+### 1. Apa kegunaan `const` di Flutter? Jelaskan apa keuntungan ketika menggunakan `const` pada kode Flutter. Kapan sebaiknya kita menggunakan `const`, dan kapan sebaiknya tidak digunakan?
+
+Kegunaan `const` di Flutter adalah untuk mendeklarasikan objek yang bersifat **immutable** atau tidak dapat diubah dan dikompilasi pada waktu **compile-time**. Dengan menggunakan `const`, kita dapat memastikan bahwa suatu objek tidak akan berubah nilai atau isinya selama aplikasi berjalan. 
+
+Keuntungan menggunakan `const`:
+- **Optimalisasi Memori**: Objek yang ditandai dengan `const` hanya akan dibuat sekali dan disimpan dalam memori untuk digunakan kembali, sehingga mengurangi penggunaan memori.
+- **Peningkatan Kinerja**: `const` memungkinkan Flutter mengoptimalkan proses rendering UI karena Flutter mengetahui bahwa widget tersebut tidak akan berubah. Ini dapat mempercepat waktu rendering.
+- **Keterbacaan Kode**: Menandai elemen sebagai `const` membantu pengembang memahami bahwa elemen tersebut tidak akan berubah, yang mempermudah pemeliharaan kode.
+
+Kapan sebaiknya menggunakan `const`:
+- Ketika kita yakin bahwa objek atau widget tidak akan mengalami perubahan (seperti teks statis atau ikon).
+- Saat bekerja dengan widget yang tidak memiliki state yang dinamis.
+
+Kapan tidak menggunakan `const`:
+- Ketika kita membutuhkan nilai yang bisa berubah secara dinamis atau bergantung pada input dari pengguna, seperti data dari API atau input formulir yang bervariasi.
+
+---
+
+### 2. Jelaskan dan bandingkan penggunaan `Column` dan `Row` pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+`Column` dan `Row` adalah dua widget layout utama di Flutter yang memungkinkan kita untuk menyusun widget dalam susunan vertikal atau horizontal.
+
+- **Column**: Menyusun elemen secara vertikal dari atas ke bawah. Misalnya, ketika kita ingin menumpuk teks, gambar, dan tombol secara vertikal di halaman.
+- **Row**: Menyusun elemen secara horizontal dari kiri ke kanan. Ini cocok digunakan saat kita ingin menyusun beberapa elemen secara sejajar pada baris yang sama.
+
+Contoh implementasi `Column`:
+
+```dart
+Column(
+  children: [
+    Text('Judul Produk'),
+    Image.asset('assets/images/produk.jpg'),
+    ElevatedButton(
+      onPressed: () {},
+      child: Text('Tambahkan ke Keranjang'),
+    ),
+  ],
+)
+```
+
+Contoh implementasi `Row`:
+
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    Icon(Icons.favorite),
+    Text('Produk Favorit'),
+    Icon(Icons.share),
+  ],
+)
+```
+
+---
+
+### 3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+
+Elemen input yang digunakan pada halaman form adalah:
+- **TextFormField** untuk nama produk, harga, deskripsi, kategori, dan stok produk.
+- **File Picker** untuk memilih gambar dari galeri atau penyimpanan.
+
+Elemen input lain yang tidak digunakan dalam tugas ini:
+- **Checkbox**: Berguna untuk pilihan ya/tidak atau beberapa pilihan.
+- **Radio Button**: Cocok untuk pilihan dengan satu jawaban dari beberapa opsi.
+- **Dropdown Button**: Berguna untuk pilihan yang lebih ringkas dan hemat ruang.
+- **Slider**: Berguna untuk memilih nilai dalam rentang tertentu, misalnya, memilih harga atau stok dengan kisaran tertentu.
+
+---
+
+### 4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+
+Untuk mengatur tema di Flutter, kita dapat mendefinisikan tema global dalam widget utama aplikasi menggunakan `ThemeData`. Ini memungkinkan kita mendefinisikan warna utama, warna latar belakang, teks, dan elemen UI lainnya secara konsisten di seluruh aplikasi.
+
+Contoh pengaturan tema:
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    primaryColor: Colors.pinkAccent,
+    buttonTheme: ButtonThemeData(
+      buttonColor: Colors.pinkAccent,
+      textTheme: ButtonTextTheme.primary,
+    ),
+  ),
+);
+```
+
+Pada aplikasi yang dibuat, **tema utama** menggunakan warna `pinkAccent` untuk memberikan konsistensi pada warna di seluruh elemen aplikasi, seperti AppBar dan tombol.
+
+---
+
+### 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+
+Dalam aplikasi Flutter, navigasi antar halaman dapat diatur menggunakan **Navigator** dan **Route**. Navigator berfungsi seperti tumpukan (stack) halaman, di mana kita dapat menambahkan (push) atau menghapus (pop) halaman sesuai kebutuhan.
+
+Contoh navigasi ke halaman baru:
+
+```dart
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => HalamanBaru()),
+);
+```
+
+Untuk kembali ke halaman sebelumnya:
+
+```dart
+Navigator.pop(context);
+```
+
+Aplikasi mobile ini (jopulee_gift) juga menggunakan **Drawer** untuk menavigasi antar halaman utama dan halaman form tambah item. Drawer memungkinkan pengguna mengakses halaman dengan mudah dan memberikan pengalaman pengguna yang konsisten dalam aplikasi dengan banyak halaman.
