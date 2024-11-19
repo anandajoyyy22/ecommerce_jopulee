@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_jopulee/widgets/left_drawer.dart'; // Tambahkan ini
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:ecommerce_jopulee/screens/menu.dart';
+import 'package:ecommerce_jopulee/widgets/left_drawer.dart';
+import 'package:provider/provider.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
@@ -19,11 +23,11 @@ class _ShopFormPageState extends State<ShopFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Form Add Product'),
-        ),
+        title: const Center(child: Text('Form Add Product')),
         backgroundColor: Colors.pinkAccent,
         foregroundColor: Colors.white,
       ),
@@ -35,155 +39,106 @@ class _ShopFormPageState extends State<ShopFormPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Nama Produk
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Product Name",
-                    labelText: "Product Name",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _name = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Name cannot be empty!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Product Name",
+                hint: "Product Name",
+                onChanged: (value) {
+                  setState(() {
+                    _name = value!;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Name cannot be empty!";
+                  }
+                  return null;
+                },
               ),
               // Harga
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Price",
-                    labelText: "Price",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _price = int.tryParse(value) ?? 0;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Price cannot be empty!";
-                    }
-                    if (int.tryParse(value) == null) {
-                      return "Price must be a number!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Price",
+                hint: "Price",
+                onChanged: (value) {
+                  setState(() {
+                    _price = int.tryParse(value!) ?? 0;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Price cannot be empty!";
+                  }
+                  if (int.tryParse(value) == null) {
+                    return "Price must be a number!";
+                  }
+                  return null;
+                },
               ),
               // Deskripsi
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Description",
-                    labelText: "Description",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _description = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Description cannot be empty!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Description",
+                hint: "Description",
+                onChanged: (value) {
+                  setState(() {
+                    _description = value!;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Description cannot be empty!";
+                  }
+                  return null;
+                },
               ),
               // Kategori
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Category",
-                    labelText: "Category",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _category = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Category cannot be empty!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Category",
+                hint: "Category",
+                onChanged: (value) {
+                  setState(() {
+                    _category = value!;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Category cannot be empty!";
+                  }
+                  return null;
+                },
               ),
               // Stok
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Stock",
-                    labelText: "Stock",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _stock = int.tryParse(value) ?? 0;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Stock cannot be empty!";
-                    }
-                    if (int.tryParse(value) == null ||
-                        int.tryParse(value)! < 0) {
-                      return "Stock must be a positive number!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Stock",
+                hint: "Stock",
+                onChanged: (value) {
+                  setState(() {
+                    _stock = int.tryParse(value!) ?? 0;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Stock cannot be empty!";
+                  }
+                  if (int.tryParse(value) == null || int.tryParse(value)! < 0) {
+                    return "Stock must be a positive number!";
+                  }
+                  return null;
+                },
               ),
               // URL Gambar
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Image URL ",
-                    labelText: "Image URL",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _imageUrl = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Image URL cannot be empty!";
-                    }
-                    return null;
-                  },
-                ),
+              _buildTextField(
+                label: "Image URL",
+                hint: "Image URL",
+                onChanged: (value) {
+                  setState(() {
+                    _imageUrl = value!;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Image URL cannot be empty!";
+                  }
+                  return null;
+                },
               ),
               // Tombol Save
               Align(
@@ -191,38 +146,45 @@ class _ShopFormPageState extends State<ShopFormPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () {
+                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.pink),
+                    ),
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Product successfully saved'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Name: $_name'),
-                                    Text('Price: $_price'),
-                                    Text('Description: $_description'),
-                                    Text('Category: $_category'),
-                                    Text('Stock: $_stock'),
-                                    Text('Image URL: $_imageUrl'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
+                        // Kirim ke Django dan tunggu respons
+                        final response = await request.postJson(
+                          "http://127.0.0.1:8000/create-flutter/",
+                          jsonEncode(<String, dynamic>{
+                            'name': _name,
+                            'price': _price.toString(),
+                            'description': _description,
+                            'category': _category,
+                            'stock': _stock,
+                            'image': _imageUrl,
+                          }),
                         );
-                        _formKey.currentState!.reset();
+
+                        // Mengecek apakah context masih valid sebelum melakukan perubahan UI
+                        if (context.mounted) {
+                          if (response['status'] == 'success') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Produk baru berhasil disimpan!"),
+                              ),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text("Terdapat kesalahan, silakan coba lagi."),
+                              ),
+                            );
+                          }
+                        }
                       }
                     },
                     child: const Text(
@@ -235,6 +197,29 @@ class _ShopFormPageState extends State<ShopFormPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Fungsi untuk membangun TextFormField agar lebih modular
+  Widget _buildTextField({
+    required String label,
+    required String hint,
+    required Function(String?) onChanged,
+    required String? Function(String?) validator,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: hint,
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        onChanged: onChanged,
+        validator: validator,
       ),
     );
   }

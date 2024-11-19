@@ -345,3 +345,32 @@ Navigator.pop(context);
 ```
 
 Aplikasi mobile ini (jopulee_gift) juga menggunakan **Drawer** untuk menavigasi antar halaman utama dan halaman form tambah item. Drawer memungkinkan pengguna mengakses halaman dengan mudah dan memberikan pengalaman pengguna yang konsisten dalam aplikasi dengan banyak halaman.
+
+
+## Tugas 9
+
+
+## 1. **Mengapa Perlu Membuat Model untuk Pengambilan atau Pengiriman Data JSON?**
+   Model digunakan untuk memetakan data JSON ke objek yang lebih mudah dikelola dalam aplikasi. Tanpa model, parsing data JSON bisa berantakan dan berpotensi menyebabkan error atau data yang tidak sesuai.
+
+## 2. **Fungsi dari Library HTTP**
+   Library `http` memungkinkan Flutter untuk berkomunikasi dengan API Django, baik untuk mengirimkan data (misalnya login, registrasi) maupun menerima data (seperti daftar item) dalam format JSON.
+
+## 3. **Fungsi dari CookieRequest dan Mengapa Perlu Dibagikan**
+   `CookieRequest` menyimpan token autentikasi atau cookies untuk menjaga sesi pengguna. Instance ini perlu dibagikan ke seluruh aplikasi untuk memastikan bahwa setiap request yang membutuhkan autentikasi menggunakan token yang sama.
+
+## 4. **Mekanisme Pengiriman Data dari Input ke Flutter**
+   Pengguna mengisi data di Flutter, data dikirimkan ke Django via HTTP `POST`, Django memproses dan mengirim respons kembali ke Flutter, yang kemudian menampilkan hasil atau status kepada pengguna.
+
+## 5. **Mekanisme Autentikasi dari Login, Register, Hingga Logout**
+   - **Login**: Data login dikirim ke Django, jika berhasil, token autentikasi diberikan dan disimpan di Flutter.
+   - **Registrasi**: Data dikirim ke Django untuk membuat akun baru, lalu bisa langsung login.
+   - **Logout**: Token autentikasi dihapus, dan sesi pengguna berakhir.
+
+## 6. **Implementasi Checklist Secara Step-by-Step**
+   - **Step 1**: Membuat model di Django untuk item.
+   - **Step 2**: Membuat API endpoint untuk mengirim data item ke Flutter.
+   - **Step 3**: Menyusun UI di Flutter untuk login, registrasi, dan menampilkan daftar item.
+   - **Step 4**: Integrasi HTTP untuk mengambil data dari Django.
+   - **Step 5**: Implementasi login dan registrasi dengan token autentikasi.
+   - **Step 6**: Testing dan debugging untuk memastikan semua berjalan dengan baik.
